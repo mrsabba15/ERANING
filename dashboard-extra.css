@@ -39,6 +39,7 @@
 }
 .product-price-row .price {
   font-size: 17px;
+  color: #d51f2b;
 }
 .product-details .detail-row {
   padding: 8px 0;
@@ -47,6 +48,7 @@
 .product-details .detail-row strong {
   max-width: 58%;
   font-size: 9px;
+  color: #1d1b1b;
 }
 .product-details .add-button {
   width: 100%;
@@ -54,9 +56,36 @@
   margin-top: 9px;
   border-radius: 18px;
   font-size: 11px;
+  background: linear-gradient(180deg, #e22f38 0%, #c8101d 100%);
+  box-shadow: 0 8px 14px rgba(205, 24, 38, 0.2);
 }
 .product-details .add-button span {
   margin-left: 5px;
+}
+
+.product-card {
+  border: 1px solid #f0e5e2;
+  box-shadow: 0 6px 18px rgba(41, 26, 22, 0.06);
+}
+
+.product-kicker {
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.product-details .detail-row {
+  border-top: 1px solid #f2ebea;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.product-card .product-name {
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+
+.product-card .product-price-row > span,
+.product-card .detail-row > span {
+  color: #7d706e;
 }
 .banner > img {
   transition: opacity 0.28s ease;
