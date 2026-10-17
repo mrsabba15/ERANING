@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f1ef" />
+  <title>Coco &amp; Co. Chocolate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Roboto:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="dashboard-extra.css" />
+  <link rel="stylesheet" href="auth.css" />
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <main class="dashboard" id="home">
+    <section class="banner" aria-label="Coco and Co chocolate collection">
+      <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1000&q=85"
+        alt="Handmade chocolate bars" />
+      <div class="banner-shade"></div>
+      <div class="banner-copy">
+        <span>SMALL BATCH · BIG JOY</span>
+        <h1>A LITTLE<br />MORE COCOA</h1>
+        <p>Chocolate for the good bits.</p>
+      </div>
+      <a class="banner-mark" href="#home" aria-label="Coco and Co home">COCO<br /><i>&amp; CO.</i></a>
+      <div class="banner-dots" id="banner-dots" aria-label="Featured chocolate slides"><button type="button"
+          class="active" data-slide="0" aria-label="Show slide 1" aria-current="true"></button><button type="button"
+          data-slide="1" aria-label="Show slide 2" aria-current="false"></button><button type="button" data-slide="2"
+          aria-label="Show slide 3" aria-current="false"></button></div>
+    </section>
+    <section class="quick-actions" aria-label="Quick links">
+      <button class="quick-action" id="recharge-shortcut" type="button"><span class="quick-icon"><svg
+            viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3.5 7.5h15a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-13a3 3 0 0 1-3-3v-12a3 3 0 0 1 3-3h13" />
+            <path d="M3 7.5h15a2 2 0 0 1 2 2v1h-5a2.5 2.5 0 0 0 0 5h5v1" />
+            <path d="M15 13h.01" />
+          </svg></span><span>RECHARGE</span></button>
+      <button class="quick-action" id="withdrawal-shortcut" type="button"><span
+          class="quick-icon">↗</span><span>WITHDRAWAL</span></button>
+      <a href="mailto:hello@cocoandco.example" class="quick-action"><span
+          class="quick-icon">♧</span><span>Service</span></a><a href="#updates" class="quick-action"><span
+          class="quick-icon">➤</span><span>Updates</span></a>
+    </section>
+    <section class="catalog" id="catalog">
+      <div class="tabs" role="tablist" aria-label="Chocolate collections">
+        <button class="tab active" role="tab" aria-selected="true" data-filter="Bars">
+          Chocolate bars</button><button class="tab" role="tab" aria-selected="false" data-filter="Gifts" id="gifts">
+          VIP
+        </button>
+      </div>
+      <div class="collection-heading">
+        <span id="collection-title">A little bar for every mood</span><button id="sort-button" class="sort-button"
+          aria-label="Sort by price">
+          ↕
+        </button>
+      </div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+    <section class="story-strip" id="returns">
+      <span>RETURNS &amp; HELP</span><strong>Need help with an order? Email hello@cocoandco.example</strong>
+    </section>
+    <section class="story-strip updates-strip" id="updates">
+      <span>COCO NOTES</span><strong>New flavours, little stories, in your inbox.</strong>
+      <form id="newsletter-form">
+        <input type="email" aria-label="Email address" placeholder="Your email address" required /><button
+          type="submit">Join →</button>
+      </form>
+    </section>
+  </main>
+  <section class="recharge-screen" id="recharge-screen" hidden aria-labelledby="recharge-title">
+    <header class="recharge-header"><button id="back-to-store" aria-label="Back to shop">‹</button>
+      <h1 id="recharge-title">Recharge</h1>
+    </header>
+    <p class="recharge-subtitle">Add chocolate store credit for your next order</p>
+    <div class="recharge-card">
+      <div class="demo-balance"><span>Demo balance</span><strong>₹0</strong></div><label class="amount-label"
+        for="recharge-amount">RECHARGE AMOUNT</label>
+      <div class="amount-input"><span>₹</span><input id="recharge-amount" type="number" min="100"
+          placeholder="Enter an amount" inputmode="numeric"></div>
+      <div class="amount-options"><button type="button" data-amount="590">₹590</button><button type="button"
+          data-amount="1995">₹1,995</button><button type="button" data-amount="4300">₹4,300</button><button
+          type="button" data-amount="8900">₹8,900</button><button type="button"
+          data-amount="19500">₹19,500</button><button type="button" data-amount="34999">₹34,999</button></div>
+    </div>
+    <div class="payment-title"><i></i>Payment method</div>
+    <div class="demo-payment"><span class="demo-check">✓</span>
+      <div><strong>Demo preview</strong><small>No payment provider is connected</small></div><span
+        class="demo-pill">DEMO</span>
+    </div><button class="recharge-submit" id="recharge-submit">Continue <span>→</span></button>
+    <p class="recharge-notice" id="recharge-notice">Preview only; no payment is taken or store credit added.</p>
+  </section>
+  <section class="withdraw-screen" id="withdraw-screen" hidden aria-labelledby="withdraw-title">
+    <header class="recharge-header"><button id="back-from-withdraw" aria-label="Back to shop">‹</button>
+      <h1 id="withdraw-title">Withdraw</h1>
+    </header>
+    <p class="recharge-subtitle">Manage chocolate store credit</p>
+    <div class="recharge-card withdraw-card">
+      <div class="withdraw-balance"><span>Available demo balance</span><strong>₹0</strong></div><label
+        class="amount-label" for="withdraw-amount">WITHDRAWAL AMOUNT</label>
+      <div class="amount-input"><span>₹</span><input id="withdraw-amount" type="number" min="0"
+          placeholder="Enter amount" inputmode="numeric"><button id="withdraw-max" type="button">MAX</button></div>
+      <div class="withdraw-summary"><span>Transfer fee<strong>Not calculated</strong></span><span>You
+          receive<strong>₹0</strong></span></div><button class="recharge-submit" id="withdraw-submit">Withdraw ₹0
+        <span>→</span></button>
+      <p class="recharge-notice" id="withdraw-notice">Demo only: no payout will be made.</p>
+    </div>
+    <div class="payment-title"><i></i>Payout account</div>
+    <div class="payout-details"><label>Real name<input type="text" placeholder="Enter real name"
+          disabled></label><label>IFSC<input type="text" placeholder="Enter IFSC code" disabled></label><label>Account
+        number<input type="text" placeholder="Enter account number" disabled></label><button type="button" disabled>Add
+        bank card</button></div>
+    <div class="withdraw-info"><strong>Good to know · Demo</strong><span>Minimum withdrawal: Not
+        available</span><span>Transfer fee: Not calculated</span><span>Transfer time: No payout processing</span></div>
+  </section>
+  <section class="team-screen" id="team-screen" hidden aria-labelledby="team-title">
+    <header class="team-header">
+      <h1 id="team-title">Team</h1>
+    </header>
+    <div class="team-top-stats">
+      <div><strong>0</strong><span>Total community</span></div>
+      <div><strong>0</strong><span>Shared chocolate picks</span></div>
+    </div>
+    <div class="team-levels" role="tablist" aria-label="Community levels"><button class="team-level active" role="tab"
+        aria-selected="true" data-level="1"><strong>LV 1</strong><small>0 · picks</small></button><button
+        class="team-level" role="tab" aria-selected="false" data-level="2"><strong>LV 2</strong><small>0 ·
+          picks</small></button><button class="team-level" role="tab" aria-selected="false" data-level="3"><strong>LV
+          3</strong><small>0 · picks</small></button></div>
+    <div class="team-metrics">
+      <div><strong>0</strong><small>MEMBERS</small></div>
+      <div><strong>0</strong><small>CHOCOLATE PICKS</small></div>
+      <div><strong>0</strong><small>FAVOURITES</small></div>
+    </div>
+    <div class="team-mini-stats"><span><strong>0</strong> friends</span><span><strong>0</strong> shared
+        picks</span><span><strong>0</strong> favourites</span></div>
+    <h2 class="team-list-heading"><span id="team-level-heading">LEVEL 1 MEMBERS</span><b id="team-member-count">0</b>
+    </h2>
+    <div class="team-empty"><span class="team-people-icon"><svg viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="19" cy="16" r="6" />
+          <path d="M7 37v-3a12 12 0 0 1 24 0v3M32 13a6 6 0 0 1 0 12m3 4a10 10 0 0 1 6 9" />
+        </svg></span><strong>No shared picks yet</strong>
+      <p>Share a chocolate favourite with a friend.</p><button id="team-shop-button">Browse chocolate</button>
+    </div>
+  </section>
+  <section class="share-screen" id="share-screen" hidden aria-labelledby="share-title">
+    <header class="share-hero">
+      <div class="share-eyebrow">COCO &amp; CO. · MADE TO SHARE</div>
+      <h1 id="share-title">Share a little joy</h1>
+      <p>Send your favourite chocolate picks to a friend.</p>
+      <div class="share-hero-note"><span>GOOD CHOCOLATE</span><strong>IS BETTER<br>SHARED</strong></div>
+    </header>
+    <div class="share-card">
+      <div class="share-card-code"><span>Your invite code</span>
+        <div><strong id="invite-code-value">LOADING</strong><button id="copy-share-code"
+            aria-label="Copy invite code"><svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+            </svg></button></div><small>Copy the code and send it to a friend</small>
+      </div>
+      <div class="share-divider"><i></i><span></span><i></i></div>
+      <div class="share-link-row"><span class="share-link-icon">↗</span>
+        <div><small>CHOCOLATE SHOP LINK</small><strong id="share-link-text">Chocolate bars &amp; little treats</strong>
+        </div><button id="copy-share-link" aria-label="Copy chocolate invite link"><svg viewBox="0 0 24 24"
+            aria-hidden="true">
+            <rect x="8" y="8" width="12" height="12" rx="2" />
+            <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+          </svg></button>
+      </div><button class="share-main-button" id="share-main-button"><span>↗</span> Share chocolate picks</button>
+    </div>
+    <div class="share-options" aria-label="Share options"><button id="copy-option"><span>⧉</span><small>Copy
+          link</small></button><button id="browse-option"><span>♡</span><small>Pick a favourite</small></button><button
+        id="share-option"><span>↗</span><small>Share</small></button></div>
+    <section class="share-how">
+      <h2>How to share</h2>
+      <article><b>1</b>
+        <div><strong>Pick a chocolate</strong>
+          <p>Find a bar or treat you think a friend will love.</p>
+        </div>
+      </article>
+      <article><b>2</b>
+        <div><strong>Copy the shop link</strong>
+          <p>Use the button above to copy this chocolate collection.</p>
+        </div>
+      </article>
+      <article><b>3</b>
+        <div><strong>Send a little joy</strong>
+          <p>Share the link with a friend in your favourite app.</p>
+        </div>
+      </article>
+    </section>
+  </section>
+  <section class="account-screen" id="account-screen" hidden aria-labelledby="account-title">
+    <header class="account-hero">
+      <h1 id="account-title">My</h1>
+      <div class="account-profile"><span class="account-avatar" aria-hidden="true"><svg viewBox="0 0 48 48">
+            <path class="chocolate-wrapper" d="m10 15 4-7 5 4 5-5 5 5 6-3 3 8v17l-6 5-5-4-5 4-5-4-6 3-1-8z" />
+            <path class="chocolate-bar" d="M13 17h22v16H13z" />
+            <path class="chocolate-line" d="M20.3 17v16m7.4-16v16M13 25h22" />
+          </svg></span>
+        <div><strong id="account-display-title"></strong><small id="account-user-id"></small></div>
+      </div>
+    </header>
+    <div class="account-summary">
+      <div class="account-stats">
+        <div><strong>₹0</strong><small>Demo balance</small></div>
+        <div><strong id="account-order-count">0</strong><small>Orders</small></div>
+        <div><strong>0</strong><small>Chocolate picks</small></div>
+      </div>
+      <div class="account-actions"><button id="account-recharge"><span>▣</span>Recharge</button><button
+          id="account-withdraw"><span>▤</span>Withdrawal</button></div>
+    </div>
+    <div class="account-section-title">ACCOUNT</div>
+    <div class="account-list"><button
+        data-account-action="Profile details are not collected in this demo."><i>▤</i><span>Personal
+          information</span><b>›</b></button><button
+        data-account-action="This chocolate demo has no device sign-in history."><i>⬡</i><span>Devices</span><b>›</b></button><button
+        data-account-action="No new Coco Notes messages."><i>▰</i><span>Messages</span><b>›</b></button><button
+        data-account-action="Your chocolate orders will appear here in the demo."><i>▧</i><span>Transactions</span><b>›</b></button><button
+        data-account-action="No demo store-credit activity yet."><i>↗</i><span>Recharge
+          details</span><b>›</b></button><button
+        data-account-action="No payouts are available in this demo."><i>↙</i><span>Withdrawal
+          details</span><b>›</b></button></div>
+    <div class="account-section-title more-title">MORE</div>
+    <div class="account-list"><button data-account-action="About us"><i>ⓘ</i><span>About us</span><b>›</b></button><button id="account-logout"><i>↪</i><span>Log out</span><b>›</b></button></div>
+  </section>
+  <section class="about-screen" id="about-screen" hidden aria-labelledby="about-title">
+    <header class="about-header"><button id="back-from-about" type="button" aria-label="Back to account">‹</button><h1 id="about-title">Note</h1></header>
+    <div class="about-content">
+      <h2>ABOUT Coco &amp; Co.</h2>
+      <article class="about-point"><span>1</span><p>A simple way to make an everyday moment sweeter. Choose a chocolate that fits your mood, from silky milk to slow-made dark, crafted in small batches with care.</p></article>
+      <article class="about-point"><span>2</span><p>Discover playful flavours and thoughtful treats made for sharing. From a little pick-me-up to a gift for someone special, every bar is made to be enjoyed.</p></article>
+      <article class="about-point"><span>3</span><p>Explore the collection, save your favourites, and place a sample order in this preview. No real payment or delivery is processed here.</p></article>
+    </div>
+  </section>
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <a class="nav-item selected" id="home-shortcut" href="#home"><span>⌂</span><small>Home</small></a><button
+      class="nav-item" id="team-shortcut"><span><svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="9" cy="8" r="3.2" />
+          <path d="M3.5 19.5v-1a5.5 5.5 0 0 1 11 0v1M16 5.2a3 3 0 0 1 0 5.8m1.7 3.3a4.6 4.6 0 0 1 2.8 4.2v1" />
+        </svg></span><small>Team</small></button><button class="nav-item" id="share-shortcut"><span><svg
+          viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="18" cy="5" r="3" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="19" r="3" />
+          <path d="m8.7 10.5 6.6-4m-6.6 7 6.6 4" />
+        </svg></span><small>Share</small></button><button class="nav-item" id="my-shortcut"><span><svg
+          viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M4.5 20v-1.4a7.5 7.5 0 0 1 15 0V20" />
+        </svg></span><small>My</small></button </nav>
+    <div class="overlay" id="overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping bag" aria-hidden="true">
+      <div class="drawer-head">
+        <div>
+          <small>YOUR CHOCOLATE PICKS</small>
+          <h2>Your bag <span id="drawer-count">(0)</span></h2>
+        </div>
+        <button class="close-button" id="close-cart" aria-label="Close bag">
+          ×
+        </button>
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-empty" id="cart-empty">
+        <span>♡</span>
+        <p>Your bag is empty for now.</p>
+        <a href="#catalog" id="continue-shopping">Find something lovely</a>
+      </div>
+      <div class="drawer-foot" id="drawer-foot">
+        <p><span>Subtotal</span><strong id="subtotal">₹0</strong></p>
+        <small>Shipping calculated at checkout.</small><button class="checkout" id="checkout">
+          Continue to checkout <span>→</span>
+        </button>
+      </div>
+    </aside>
+    <dialog id="buy-dialog" aria-labelledby="buy-dialog-title">
+      <small class="dialog-eyebrow">COCO &amp; CO. · ORDER PREVIEW</small>
+      <h2 id="buy-dialog-title">Review your chocolate</h2>
+      <p class="buy-dialog-product" id="buy-dialog-product"></p>
+      <div class="buy-dialog-summary">
+        <div><span>Price</span><strong id="buy-dialog-price"></strong></div>
+        <div><span>Pack size</span><strong id="buy-dialog-pack"></strong></div>
+      </div>
+      <div class="buy-dialog-actions"><button type="button" id="buy-cancel">Cancel</button><button type="button"
+          id="buy-confirm">Buy</button></div>
+    </dialog>
+    <dialog id="login-required-dialog" aria-labelledby="login-required-title">
+      <small class="dialog-eyebrow">COCO &amp; CO. ACCOUNT</small>
+      <h2 id="login-required-title">Login required</h2>
+      <p>Sign in to your account before continuing with this demo order.</p>
+      <div class="buy-dialog-actions"><button type="button" id="login-required-cancel">Cancel</button><button
+          type="button" id="login-required-open">Sign in</button></div>
+    </dialog>
+    <dialog id="checkout-dialog">
+      <button class="close-button dialog-close" id="close-checkout" aria-label="Close checkout">
+        ×</button><small class="dialog-eyebrow">DEMO CHECKOUT</small>
+      <h2>Almost yours.</h2>
+      <p>This is a demo storefront. No payment will be collected.</p>
+      <form id="checkout-form">
+        <label>Name<input required autocomplete="name" placeholder="Your name" /></label><label>Email<input type="email"
+            required autocomplete="email" placeholder="you@example.com" /></label><label>Delivery address<input required
+            autocomplete="street-address" placeholder="Street, city, PIN code" /></label><button class="checkout"
+          type="submit">
+          Place demo order <span>→</span>
+        </button>
+      </form>
+      <div id="order-message" role="status"></div>
+    </dialog>
+    <div class="toast" id="toast" role="status"></div>
+</body>
+
+</html>
