@@ -22,7 +22,8 @@ const grid = document.querySelector("#product-grid"),
   overlay = document.querySelector("#overlay"),
   dialog = document.querySelector("#checkout-dialog"),
   buyDialog = document.querySelector("#buy-dialog"),
-  loginRequiredDialog = document.querySelector("#login-required-dialog");
+  loginRequiredDialog = document.querySelector("#login-required-dialog"),
+  storeAdDialog = document.querySelector("#store-ad-dialog");
 let pendingProductId = null;
 function renderProducts() {
   const list = [...products];
@@ -252,6 +253,15 @@ document.querySelector("#checkout").addEventListener("click", () => {
 document
   .querySelector("#close-checkout")
   .addEventListener("click", () => dialog.close());
+document
+  .querySelector("#store-ad-close")
+  .addEventListener("click", () => storeAdDialog.close());
+document.querySelector(".store-ad-link").addEventListener("click", () => {
+  storeAdDialog.close();
+});
+storeAdDialog.addEventListener("click", (event) => {
+  if (event.target === storeAdDialog) storeAdDialog.close();
+});
 dialog.addEventListener("click", (e) => {
   if (e.target === dialog) dialog.close();
 });
@@ -297,6 +307,11 @@ function showPage(page) {
     .querySelector("#my-shortcut")
     .classList.toggle("selected", page === "account");
   window.scrollTo(0, 0);
+  if (page === "home") showStoreAd();
+  else if (storeAdDialog.open) storeAdDialog.close();
+}
+function showStoreAd() {
+  if (!storeAdDialog.open) storeAdDialog.showModal();
 }
 function paintAccount() {
   document.querySelector("#account-display-title").textContent =
@@ -492,4 +507,5 @@ document
   });
 renderProducts();
 renderCart();
+if (location.hash !== "#account") showStoreAd();
 loadSession();

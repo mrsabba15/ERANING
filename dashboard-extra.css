@@ -1853,6 +1853,104 @@
   font-size: 12px;
   text-align: right;
 }
+.store-ad-dialog {
+  overflow: hidden;
+  width: min(340px, calc(100% - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 18px 60px #170d0c55;
+}
+.store-ad-dialog::backdrop {
+  background: #21171599;
+  backdrop-filter: blur(3px);
+}
+.store-ad-visual {
+  position: relative;
+  height: 145px;
+  overflow: hidden;
+  background: #6e342d;
+}
+.store-ad-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.store-ad-visual::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #23100db3, transparent 70%);
+  content: "";
+}
+.store-ad-visual > span {
+  position: absolute;
+  z-index: 1;
+  bottom: 13px;
+  left: 17px;
+  color: #fff;
+  font: italic 700 19px/0.9 var(--serif);
+  text-shadow: 0 2px 8px #190b0bcc;
+}
+.store-ad-visual > span i {
+  font-size: 12px;
+}
+.store-ad-close {
+  position: absolute;
+  z-index: 2;
+  top: 11px;
+  right: 11px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  background: #21171580;
+  color: #fff;
+  font-size: 21px;
+  line-height: 1;
+  cursor: pointer;
+}
+.store-ad-copy {
+  padding: 18px 20px 20px;
+}
+.store-ad-copy > small {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+.store-ad-copy h2 {
+  margin: 9px 0 7px;
+  color: var(--ink);
+  font: italic 700 23px/1.08 var(--serif);
+}
+.store-ad-copy p {
+  margin: 0;
+  color: #746964;
+  font-size: 11px;
+  line-height: 1.55;
+}
+.store-ad-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 16px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #8e1722 0%, #c51f2b 70%, #df3940 100%);
+  box-shadow: 0 5px 12px #9a19253d;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+.store-ad-link:focus-visible,
+.store-ad-close:focus-visible {
+  outline: 3px solid #232323;
+  outline-offset: 3px;
+}
 @media (max-width: 560px) {
   .dashboard {
     padding: 20px 14px 88px;
