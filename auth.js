@@ -41,7 +41,7 @@ async function readApiResponse(response) {
   const contentType = response.headers.get("content-type") || "";
   if (!contentType.includes("application/json")) {
     throw new Error(
-      "Authentication server nahi mil raha. Project folder mein `npm start` chalao, phir http://127.0.0.1:4173/auth.html kholo (Live Server ya file:// se nahi).",
+      "Backend server not running. Run `npm start` and open http://127.0.0.1:4173/",
     );
   }
   return response.json();
@@ -88,7 +88,7 @@ form.addEventListener("submit", async (event) => {
   } catch (error) {
     errorMessage.textContent =
       error instanceof TypeError
-        ? "Could not reach the authentication server. Run npm start and open http://127.0.0.1:4173/."
+        ? "Backend server not running."
         : error.message || "Could not authenticate your account.";
   } finally {
     submitButton.disabled = false;
@@ -106,6 +106,6 @@ document.querySelectorAll(".auth-back, .auth-brand").forEach((link) => {
 redirectIfSignedIn().catch((error) => {
   errorMessage.textContent =
     error instanceof TypeError
-      ? "Authentication server se connection nahi ho raha. Project folder mein `npm start` chalao aur http://127.0.0.1:4173/auth.html kholo."
+      ? "Backend server not running. Run `npm start` and open http://127.0.0.1:4173/"
       : error.message;
 });

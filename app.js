@@ -1,92 +1,14 @@
 const products = [
-  {
-    id: 1,
-    kind: "Bars",
-    name: "Sea Salt Dark",
-    price: 390,
-    weight: "80 g",
-    cacao: "70% cacao",
-    note: "A little salty, deeply lovely",
-    tag: "BESTSELLER",
-    image: "photo-1511381939415-e44015466834",
-  },
-  {
-    id: 2,
-    kind: "Bars",
-    name: "Creamy Classic",
-    price: 320,
-    weight: "80 g",
-    cacao: "Milk chocolate",
-    note: "Silky, smooth and sweet",
-    tag: "JUST IN",
-    image: "photo-1606313564200-e75d5e30476c",
-  },
-  {
-    id: 3,
-    kind: "Bars",
-    name: "Orange Grove",
-    price: 420,
-    weight: "80 g",
-    cacao: "68% cacao",
-    note: "Dark chocolate and orange",
-    tag: "",
-    image: "photo-1511381939415-e44015466834",
-  },
-  {
-    id: 4,
-    kind: "Bars",
-    name: "Hazelnut Hug",
-    price: 450,
-    weight: "80 g",
-    cacao: "Milk chocolate",
-    note: "With roasted hazelnuts",
-    tag: "FAN FAVOURITE",
-    image: "photo-1481391319762-47dff72954d9",
-  },
-  {
-    id: 5,
-    kind: "Bars",
-    name: "After Dinner",
-    price: 520,
-    weight: "80 g",
-    cacao: "85% cacao",
-    note: "Bold, mellow, not too sweet",
-    tag: "",
-    image: "photo-1606313564200-e75d5e30476c",
-  },
-  {
-    id: 6,
-    kind: "Bars",
-    name: "Honeycomb Crunch",
-    price: 390,
-    weight: "80 g",
-    cacao: "Milk chocolate",
-    note: "Golden honeycomb pieces",
-    tag: "",
-    image: "photo-1548907040-4d42baa9a0a7",
-  },
-  {
-    id: 7,
-    kind: "Gifts",
-    name: "Little Luxuries",
-    price: 1290,
-    weight: "12 pieces",
-    cacao: "Assorted truffles",
-    note: "A box made for sharing",
-    tag: "GIFT READY",
-    image: "photo-1481391319762-47dff72954d9",
-  },
-  {
-    id: 8,
-    kind: "Gifts",
-    name: "The Sharing Box",
-    price: 1590,
-    weight: "20 pieces",
-    cacao: "Bars and bonbons",
-    note: "A little something for everyone",
-    tag: "BESTSELLER",
-    image: "photo-1511381939415-e44015466834",
-  },
+  { id: 1, kind: "Bars", name: "Product A", price: 550, daily: 110, days: 45, total: 24750, image: "photo-1511381939415-e44015466834" },
+  { id: 2, kind: "Bars", name: "Product B", price: 1230, daily: 205, days: 45, total: 55350, image: "photo-1606313564200-e75d5e30476c" },
+  { id: 3, kind: "Bars", name: "Product C", price: 3500, daily: 490, days: 20, total: 77000, image: "photo-1511381939415-e44015466834" },
+  { id: 4, kind: "Bars", name: "Product D", price: 8500, daily: 1200, days: 22, total: 187000, image: "photo-1481391319762-47dff72954d9" },
+  { id: 5, kind: "Bars", name: "Product E", price: 15000, daily: 1875, days: 22, total: 330000, image: "photo-1606313564200-e75d5e30476c" },
+  { id: 6, kind: "Bars", name: "Product F", price: 40000, daily: 2200, days: 20, total: 800000, image: "photo-1606313564200-e75d5e30476c" },
+  { id: 7, kind: "Gifts", name: "VIP 1", price: 1000, days: 1, total: 2000, image: "photo-1481391319762-47dff72954d9" },
+  { id: 8, kind: "Gifts", name: "VIP 2", price: 5000, days: 1, total: 8000, image: "photo-1511381939415-e44015466834" },
+  { id: 9, kind: "Gifts", name: "VIP 3", price: 8000, days: 2, total: 15000, image: "photo-1481391319762-47dff72954d9" },
+  { id: 10, kind: "Gifts", name: "VIP 4", price: 20000, days: 2, total: 40000, image: "photo-1511381939415-e44015466834" },
 ];
 const money = (n) => "₹" + n.toLocaleString("en-IN");
 let activeFilter = "Bars",
@@ -103,18 +25,13 @@ const grid = document.querySelector("#product-grid"),
   loginRequiredDialog = document.querySelector("#login-required-dialog");
 let pendingProductId = null;
 function renderProducts() {
-  const list = products.filter((p) => p.kind === activeFilter);
+  const list = [...products];
   if (lowFirst) list.sort((a, b) => a.price - b.price);
-  grid.innerHTML = list
-    .map(
-      (p) =>
-        `<article class="product-card"><div class="product-art"><img loading="lazy" src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=600&q=80" alt="${p.name} chocolate"><span class="product-brand">Coco &amp; Co.</span><strong class="product-name">${p.name}</strong><button class="favorite-toggle ${favorites.has(p.id) ? "favorited" : ""}" data-favorite="${p.id}" aria-label="Save ${p.name}">${favorites.has(p.id) ? "♥" : "♡"}</button></div><div class="product-details"><div class="product-kicker">${p.tag || "SMALL BATCH CHOCOLATE"}</div><div class="product-price-row"><span>PRICE</span><strong class="price">${money(p.price)}</strong></div><div class="detail-row"><span>Cocoa</span><strong>${p.cacao}</strong></div><div class="detail-row"><span>Pack size</span><strong>${p.weight}</strong></div><div class="detail-row"><span>Tasting notes</span><strong>${p.note}</strong></div><button class="add-button" data-add="${p.id}">Buy now <span aria-hidden="true">→</span></button></div></article>`,
-    )
-    .join("");
-  document.querySelector("#collection-title").textContent =
-    activeFilter === "Bars"
-      ? "A little bar for every mood"
-      : "VIP chocolate selection";
+  const bars = list.filter((p) => p.kind === "Bars");
+  const vip = list.filter((p) => p.kind === "Gifts");
+  const card = (p) => `<article class="plan-card ${p.kind === "Gifts" ? "vip-plan" : ""}"><div class="plan-image"><img loading="lazy" src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=600&q=80" alt="Chocolate for ${p.name}"></div><h3>${p.name}</h3><dl><div><dt>Price</dt><dd>${money(p.price)}</dd></div>${p.daily ? `<div><dt>Daily</dt><dd>${money(p.daily)}</dd></div>` : ""}<div><dt>Days</dt><dd>${p.days}</dd></div><div class="plan-total"><dt>Total</dt><dd>${money(p.total)}</dd></div></dl></article>`;
+  grid.innerHTML = `<section class="plan-group"><h2>Chocolate Bars</h2><div class="plan-group-grid">${bars.map(card).join("")}</div></section><section class="plan-group vip-group"><h2>VIP</h2><div class="plan-group-grid">${vip.map(card).join("")}</div><p class="plan-note">Withdrawal after days complete</p></section>`;
+  document.querySelector("#collection-title").textContent = "Available plans";
 }
 function entries() {
   return Object.entries(cart)
