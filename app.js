@@ -29,7 +29,7 @@ function renderProducts() {
   if (lowFirst) list.sort((a, b) => a.price - b.price);
   const bars = list.filter((p) => p.kind === "Bars");
   const vip = list.filter((p) => p.kind === "Gifts");
-  const card = (p) => `<article class="plan-card ${p.kind === "Gifts" ? "vip-plan" : ""}"><div class="plan-image"><img loading="lazy" src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=600&q=80" alt="Chocolate for ${p.name}"></div><h3>${p.name}</h3><dl><div><dt>Price</dt><dd>${money(p.price)}</dd></div>${p.daily ? `<div><dt>Daily</dt><dd>${money(p.daily)}</dd></div>` : ""}<div><dt>Days</dt><dd>${p.days}</dd></div><div class="plan-total"><dt>Total</dt><dd>${money(p.total)}</dd></div></dl></article>`;
+  const card = (p) => `<article class="plan-card ${p.kind === "Gifts" ? "vip-plan" : ""}"><div class="plan-image"><img loading="lazy" src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=600&q=80" alt="Chocolate for ${p.name}"></div><h3>${p.name}</h3><dl><div><dt>Price</dt><dd>${money(p.price)}</dd></div>${p.daily ? `<div><dt>Daily</dt><dd>${money(p.daily)}</dd></div>` : ""}<div><dt>Days</dt><dd>${p.days}</dd></div><div class="plan-total"><dt>Total</dt><dd>${money(p.total)}</dd></div></dl><button class="add-button" type="button" data-add="${p.id}">BUY</button></article>`;
   grid.innerHTML = `<section class="plan-group"><h2>Chocolate Bars</h2><div class="plan-group-grid">${bars.map(card).join("")}</div></section><section class="plan-group vip-group"><h2>VIP</h2><div class="plan-group-grid">${vip.map(card).join("")}</div><p class="plan-note">Withdrawal after days complete</p></section>`;
   document.querySelector("#collection-title").textContent = "Available plans";
 }
@@ -55,7 +55,7 @@ function renderCart() {
   document.querySelector("#cart-items").innerHTML = items
     .map(
       ({ product: p, qty }) =>
-        `<div class="cart-row"><img src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=180&q=75" alt="${p.name}"><div><h3>${p.name}</h3><small>${p.cacao} · ${p.weight}</small><div class="qty-controls"><button data-qty="${p.id}" data-change="-1" aria-label="Remove one">−</button><span>${qty}</span><button data-qty="${p.id}" data-change="1" aria-label="Add one">+</button></div></div><div><strong>${money(p.price * qty)}</strong><button class="remove-item" data-remove="${p.id}">Remove</button></div></div>`,
+        `<div class="cart-row"><img src="https://images.unsplash.com/${p.image}?auto=format&fit=crop&w=180&q=75" alt="${p.name}"><div><h3>${p.name}</h3><small>${p.daily ? `Daily ${money(p.daily)} · ` : ""}${p.days} days</small><div class="qty-controls"><button data-qty="${p.id}" data-change="-1" aria-label="Remove one">−</button><span>${qty}</span><button data-qty="${p.id}" data-change="1" aria-label="Add one">+</button></div></div><div><strong>${money(p.price * qty)}</strong><button class="remove-item" data-remove="${p.id}">Remove</button></div></div>`,
     )
     .join("");
   document.querySelector("#cart-empty").style.display = count ? "none" : "grid";
@@ -159,11 +159,12 @@ document.querySelector("#product-grid").addEventListener("click", (e) => {
   if (add) {
     pendingProductId = Number(add.dataset.add);
     const product = products.find((p) => p.id === pendingProductId);
+    document.querySelector("#buy-dialog-title").textContent = "Review your plan";
     document.querySelector("#buy-dialog-product").textContent = product.name;
     document.querySelector("#buy-dialog-price").textContent = money(
       product.price,
     );
-    document.querySelector("#buy-dialog-pack").textContent = product.weight;
+    document.querySelector("#buy-dialog-pack").textContent = `${product.days} day${product.days === 1 ? "" : "s"}`;
     buyDialog.showModal();
     return;
   }
