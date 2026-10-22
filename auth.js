@@ -34,7 +34,9 @@ function setAuthMode(mode) {
 
 function returnToShop() {
   const requested = new URLSearchParams(location.search).get("return") || "/";
-  return requested === "/#account" ? requested : "/";
+  return ["/#account", "/#recharge", "/#plans", "/#withdraw", "/#admin", "/#profile", "/#transactions", "/#recharge-details"].includes(requested)
+    ? requested
+    : "/";
 }
 
 async function readApiResponse(response) {

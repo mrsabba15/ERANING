@@ -339,154 +339,14 @@ a {
   color: #fff;
   font: 9px var(--sans);
 }
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: #19121080;
-  z-index: 5;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.2s;
-}
-.overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
-.cart-drawer {
-  position: fixed;
-  z-index: 6;
-  right: max(0px, calc((100vw - 410px) / 2));
-  top: 0;
-  height: 100dvh;
-  width: min(410px, 100%);
-  background: var(--paper);
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(102%);
-  transition: transform 0.25s;
-}
-.cart-drawer.open {
-  transform: translateX(0);
-}
-.drawer-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  border-bottom: 1px solid #ded7d3;
-  padding-bottom: 17px;
-}
-.drawer-head small,
 .dialog-eyebrow {
   font-size: 9px;
   letter-spacing: 0.14em;
   color: var(--muted);
 }
-.drawer-head h2,
 dialog h2 {
   font: 600 27px var(--serif);
   margin: 7px 0 0;
-}
-.drawer-head h2 span {
-  font: 11px var(--sans);
-  color: var(--muted);
-}
-.close-button {
-  border: 0;
-  background: none;
-  font-size: 27px;
-  line-height: 1;
-}
-.cart-items {
-  overflow: auto;
-}
-.cart-row {
-  display: grid;
-  grid-template-columns: 65px 1fr auto;
-  gap: 12px;
-  padding: 15px 0;
-  border-bottom: 1px solid #ded7d3;
-}
-.cart-row img {
-  width: 65px;
-  height: 73px;
-  object-fit: cover;
-  border-radius: 7px;
-}
-.cart-row h3 {
-  font: 600 14px var(--serif);
-  margin: 4px 0;
-}
-.cart-row small {
-  font-size: 10px;
-  color: var(--muted);
-}
-.qty-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 9px;
-  font-size: 11px;
-}
-.qty-controls button {
-  border: 1px solid #ddd4cf;
-  background: white;
-  width: 22px;
-  height: 22px;
-}
-.remove-item {
-  border: 0;
-  background: none;
-  color: var(--muted);
-  font-size: 9px;
-}
-.cart-empty {
-  flex: 1;
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  color: var(--muted);
-}
-.cart-empty > span {
-  font-size: 24px;
-  color: var(--red);
-}
-.cart-empty p {
-  font: italic 17px var(--serif);
-}
-.cart-empty a {
-  font-size: 11px;
-  color: var(--red);
-  border-bottom: 1px solid;
-}
-.drawer-foot {
-  padding-top: 15px;
-  border-top: 1px solid #ded7d3;
-}
-.drawer-foot > p {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-}
-.drawer-foot > small {
-  display: block;
-  color: var(--muted);
-  font-size: 9px;
-  margin-bottom: 13px;
-}
-.checkout {
-  width: 100%;
-  padding: 14px;
-  border: 0;
-  border-radius: 8px;
-  background: var(--red);
-  color: #fff;
-  font-weight: 700;
-  font-size: 12px;
-}
-.checkout span {
-  float: right;
-  font-size: 17px;
 }
 dialog {
   position: fixed;
@@ -500,39 +360,10 @@ dialog {
 dialog::backdrop {
   background: #19121088;
 }
-.dialog-close {
-  position: absolute;
-  right: 18px;
-  top: 15px;
-}
 dialog > p {
   font-size: 11px;
   line-height: 1.7;
   color: var(--muted);
-}
-#checkout-form {
-  display: grid;
-  gap: 12px;
-  margin-top: 18px;
-}
-#checkout-form label {
-  font-size: 10px;
-  color: var(--muted);
-}
-#checkout-form input {
-  display: block;
-  width: 100%;
-  margin-top: 6px;
-  padding: 12px;
-  border: 1px solid #ddd4cf;
-  background: transparent;
-  font-size: 11px;
-}
-#order-message {
-  margin-top: 13px;
-  color: #537a4c;
-  font-size: 12px;
-  line-height: 1.7;
 }
 .toast {
   position: fixed;

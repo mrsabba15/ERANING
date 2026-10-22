@@ -44,8 +44,8 @@
       <button class="quick-action" id="withdrawal-shortcut" type="button"><span
           class="quick-icon">↗</span><span>WITHDRAWAL</span></button>
       <a href="https://t.me/+evzPvYfspJBhNGQ1" target="_blank" rel="noopener noreferrer" class="quick-action"><span
-          class="quick-icon">♧</span><span>Service</span></a><a href="#updates" class="quick-action"><span
-          class="quick-icon">➤</span><span>Updates</span></a>
+          class="quick-icon">♧</span><span>Service</span></a><button type="button" class="quick-action" id="plans-shortcut"><span
+          class="quick-icon">➤</span><span>Updates</span></button>
     </section>
     <section class="catalog" id="catalog">
       <div class="tabs" role="tablist" aria-label="Chocolate collections">
@@ -73,13 +73,27 @@
       </form>
     </section>
   </main>
+  <section class="plans-screen" id="plans-screen" hidden aria-labelledby="plans-title">
+    <header class="recharge-header"><button id="back-from-plans" type="button" aria-label="Back to shop">‹</button>
+      <h1 id="plans-title">Active Plans</h1>
+    </header>
+    <p class="recharge-subtitle">Track your plan progress and daily rewards</p>
+    <div class="plans-summary">
+      <div><span>Total rewards earned</span><strong id="plans-earned">₹0</strong></div>
+      <div><span>Available to withdraw</span><strong id="plans-available">₹0</strong></div>
+    </div>
+    <button class="recharge-submit plans-withdraw-button" id="plans-withdraw" type="button">Request withdrawal <span>→</span></button>
+    <div class="active-plans-list" id="active-plans-list" aria-live="polite">
+      <p class="plans-empty">Loading your plans…</p>
+    </div>
+  </section>
   <section class="recharge-screen" id="recharge-screen" hidden aria-labelledby="recharge-title">
     <header class="recharge-header"><button id="back-to-store" aria-label="Back to shop">‹</button>
       <h1 id="recharge-title">Recharge</h1>
     </header>
     <p class="recharge-subtitle">Add chocolate store credit for your next order</p>
     <div class="recharge-card">
-      <div class="demo-balance"><span>Demo balance</span><strong>₹0</strong></div><label class="amount-label"
+      <div class="demo-balance"><span>Store credit</span><strong id="wallet-balance">₹0</strong></div><label class="amount-label"
         for="recharge-amount">RECHARGE AMOUNT</label>
       <div class="amount-input"><span>₹</span><input id="recharge-amount" type="number" min="100"
           placeholder="Enter an amount" inputmode="numeric"></div>
@@ -90,33 +104,58 @@
     </div>
     <div class="payment-title"><i></i>Payment method</div>
     <div class="demo-payment"><span class="demo-check">✓</span>
-      <div><strong>Demo preview</strong><small>No payment provider is connected</small></div><span
-        class="demo-pill">DEMO</span>
-    </div><button class="recharge-submit" id="recharge-submit">Continue <span>→</span></button>
-    <p class="recharge-notice" id="recharge-notice">Preview only; no payment is taken or store credit added.</p>
+      <div><strong id="payment-provider-title">Razorpay</strong><small id="payment-provider-status">Checking server configuration…</small></div><span
+        class="demo-pill" id="payment-mode-badge">WAIT</span>
+    </div><button class="recharge-submit" id="recharge-submit" disabled>Continue to payment <span>→</span></button>
+    <p class="recharge-notice" id="recharge-notice">No payment will be taken until Razorpay is configured on the server.</p>
   </section>
   <section class="withdraw-screen" id="withdraw-screen" hidden aria-labelledby="withdraw-title">
     <header class="recharge-header"><button id="back-from-withdraw" aria-label="Back to shop">‹</button>
       <h1 id="withdraw-title">Withdraw</h1>
     </header>
-    <p class="recharge-subtitle">Manage chocolate store credit</p>
+    <p class="recharge-subtitle">Request a withdrawal from earned plan rewards</p>
     <div class="recharge-card withdraw-card">
-      <div class="withdraw-balance"><span>Available demo balance</span><strong>₹0</strong></div><label
-        class="amount-label" for="withdraw-amount">WITHDRAWAL AMOUNT</label>
-      <div class="amount-input"><span>₹</span><input id="withdraw-amount" type="number" min="0"
+      <div class="withdraw-balance"><span>Available rewards</span><strong id="withdraw-balance">₹0</strong></div><label
+        class="amount-label" for="withdraw-amount">REQUEST AMOUNT</label>
+      <div class="amount-input"><span>₹</span><input id="withdraw-amount" type="number" min="1"
           placeholder="Enter amount" inputmode="numeric"><button id="withdraw-max" type="button">MAX</button></div>
-      <div class="withdraw-summary"><span>Transfer fee<strong>Not calculated</strong></span><span>You
-          receive<strong>₹0</strong></span></div><button class="recharge-submit" id="withdraw-submit">Withdraw ₹0
+      <label class="amount-label payout-method-label" for="withdraw-payout-method">PAYOUT METHOD</label>
+      <select id="withdraw-payout-method" class="withdraw-payout-method">
+        <option value="upi">UPI</option>
+        <option value="bank">Bank account</option>
+      </select>
+      <div id="withdraw-upi-fields" class="withdraw-payout-fields">
+        <label class="amount-label" for="withdraw-upi-id">UPI ID</label>
+        <input id="withdraw-upi-id" class="withdraw-payout-input" type="text" maxlength="100"
+          autocomplete="off" placeholder="Number@ybl" required>
+      </div>
+      <div id="withdraw-bank-fields" class="withdraw-payout-fields" hidden>
+        <label class="amount-label" for="withdraw-account-holder">ACCOUNT HOLDER NAME</label>
+        <input id="withdraw-account-holder" class="withdraw-payout-input" type="text" maxlength="100"
+          autocomplete="name" placeholder="Name on bank account">
+        <label class="amount-label" for="withdraw-account-number">BANK ACCOUNT NUMBER</label>
+        <input id="withdraw-account-number" class="withdraw-payout-input" type="text" maxlength="20"
+          inputmode="numeric" autocomplete="off" placeholder="Enter account number">
+        <label class="amount-label" for="withdraw-ifsc">IFSC CODE</label>
+        <input id="withdraw-ifsc" class="withdraw-payout-input" type="text" maxlength="11"
+          autocapitalize="characters" autocomplete="off" placeholder="ABCD0123456">
+      </div>
+      <p class="withdraw-payout-note">These details are shown to the admin for manual payout.</p>
+      <div class="withdraw-summary"><span>Request status<strong>Admin review</strong></span><span>Requested amount
+          <strong id="withdraw-receive">₹0</strong></span></div><button class="recharge-submit" id="withdraw-submit" disabled>Send withdrawal request
         <span>→</span></button>
-      <p class="recharge-notice" id="withdraw-notice">Demo only: no payout will be made.</p>
+      <p class="recharge-notice" id="withdraw-notice">Your request will be reviewed by an admin.</p>
     </div>
-    <div class="payment-title"><i></i>Payout account</div>
-    <div class="payout-details"><label>Real name<input type="text" placeholder="Enter real name"
-          disabled></label><label>IFSC<input type="text" placeholder="Enter IFSC code" disabled></label><label>Account
-        number<input type="text" placeholder="Enter account number" disabled></label><button type="button" disabled>Add
-        bank card</button></div>
-    <div class="withdraw-info"><strong>Good to know · Demo</strong><span>Minimum withdrawal: Not
-        available</span><span>Transfer fee: Not calculated</span><span>Transfer time: No payout processing</span></div>
+    <div class="withdraw-info"><strong>Withdrawal request</strong><span>Requests appear in the admin panel and stay pending until they are accepted or rejected.</span><span>Rejected requests return to your available rewards.</span><span>Minimum withdrawal: ₹1 from earned rewards.</span></div>
+    <div class="withdrawal-history" id="withdrawal-history" aria-live="polite"></div>
+  </section>
+  <section class="admin-screen" id="admin-screen" hidden aria-labelledby="admin-title">
+    <header class="recharge-header"><button id="back-from-admin" type="button" aria-label="Back to account">‹</button>
+      <h1 id="admin-title">Withdrawal Requests</h1>
+    </header>
+    <p class="recharge-subtitle">Review requests from account holders</p>
+    <p class="recharge-notice admin-withdrawal-notice" id="admin-withdrawal-notice" aria-live="polite">Loading withdrawal requests…</p>
+    <div class="admin-withdrawal-list" id="admin-withdrawal-list" aria-live="polite"></div>
   </section>
   <section class="team-screen" id="team-screen" hidden aria-labelledby="team-title">
     <header class="team-header">
@@ -207,7 +246,7 @@
     </header>
     <div class="account-summary">
       <div class="account-stats">
-        <div><strong>₹0</strong><small>Demo balance</small></div>
+        <div><strong id="account-wallet-balance">₹0</strong><small>Store credit</small></div>
         <div><strong id="account-order-count">0</strong><small>Orders</small></div>
         <div><strong>0</strong><small>Chocolate picks</small></div>
       </div>
@@ -215,16 +254,15 @@
           id="account-withdraw"><span>▤</span>Withdrawal</button></div>
     </div>
     <div class="account-section-title">ACCOUNT</div>
-    <div class="account-list"><button
-        data-account-action="Profile details are not collected in this demo."><i>▤</i><span>Personal
+    <div class="account-list"><button id="account-personal-info"><i>▤</i><span>Personal
           information</span><b>›</b></button><button
         data-account-action="This chocolate demo has no device sign-in history."><i>⬡</i><span>Devices</span><b>›</b></button><button
         data-account-action="No new Coco Notes messages."><i>▰</i><span>Messages</span><b>›</b></button><button
-        data-account-action="Your chocolate orders will appear here in the demo."><i>▧</i><span>Transactions</span><b>›</b></button><button
-        data-account-action="No demo store-credit activity yet."><i>↗</i><span>Recharge
+        id="account-transactions"><i>▧</i><span>Transactions</span><b>›</b></button><button
+        id="account-recharge-details"><i>↗</i><span>Recharge
           details</span><b>›</b></button><button
-        data-account-action="No payouts are available in this demo."><i>↙</i><span>Withdrawal
-          details</span><b>›</b></button></div>
+          id="account-withdrawal-details"><i>↙</i><span>Withdrawal
+          details</span><b>›</b></button><button id="account-admin" hidden><i>✓</i><span>Withdrawal admin panel</span><b>›</b></button></div>
     <div class="account-section-title more-title">MORE</div>
     <div class="account-list"><button data-account-action="About us"><i>ⓘ</i><span>About us</span><b>›</b></button><button id="account-logout"><i>↪</i><span>Log out</span><b>›</b></button></div>
   </section>
@@ -236,6 +274,34 @@
       <article class="about-point"><span>2</span><p>Discover playful flavours and thoughtful treats made for sharing. From a little pick-me-up to a gift for someone special, every bar is made to be enjoyed.</p></article>
       <article class="about-point"><span>3</span><p>Explore the collection, save your favourites, and place a sample order in this preview. No real payment or delivery is processed here.</p></article>
     </div>
+  </section>
+  <section class="profile-screen" id="profile-screen" hidden aria-labelledby="profile-title">
+    <header class="recharge-header"><button id="back-from-profile" type="button" aria-label="Back to account">‹</button>
+      <h1 id="profile-title">Personal information</h1>
+    </header>
+    <p class="recharge-subtitle">Your saved Coco &amp; Co. account details</p>
+    <div class="profile-details">
+      <div class="profile-detail-row"><span>Email or phone</span><strong id="profile-login-id">—</strong></div>
+      <div class="profile-detail-row"><span>Member ID</span><strong id="profile-member-id">—</strong></div>
+      <div class="profile-detail-row"><span>Invite code</span><strong id="profile-invite-code">—</strong></div>
+      <div class="profile-detail-row"><span>Joined</span><strong id="profile-joined-date">—</strong></div>
+    </div>
+    <p class="profile-note">Only details already saved to your account are shown here.</p>
+  </section>
+  <section class="account-history-screen" id="transactions-screen" hidden aria-labelledby="transactions-title">
+    <header class="recharge-header"><button id="back-from-transactions" type="button" aria-label="Back to account">‹</button>
+      <h1 id="transactions-title">Transactions</h1>
+    </header>
+    <p class="recharge-subtitle">Your plans, recharges, and withdrawal requests</p>
+    <div class="account-history-list" id="transactions-list" aria-live="polite"></div>
+  </section>
+  <section class="account-history-screen" id="recharge-details-screen" hidden aria-labelledby="recharge-details-title">
+    <header class="recharge-header"><button id="back-from-recharge-details" type="button" aria-label="Back to account">‹</button>
+      <h1 id="recharge-details-title">Recharge details</h1>
+    </header>
+    <p class="recharge-subtitle">Confirmed store-credit additions</p>
+    <div class="recharge-balance-card"><span>Current store credit</span><strong id="recharge-details-balance">₹0</strong></div>
+    <div class="account-history-list" id="recharges-list" aria-live="polite"></div>
   </section>
   <nav class="bottom-nav" aria-label="Main navigation">
     <a class="nav-item selected" id="home-shortcut" href="#home"><span>⌂</span><small>Home</small></a><button
@@ -253,62 +319,12 @@
           <circle cx="12" cy="8" r="3.5" />
           <path d="M4.5 20v-1.4a7.5 7.5 0 0 1 15 0V20" />
         </svg></span><small>My</small></button </nav>
-    <div class="overlay" id="overlay"></div>
-    <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping bag" aria-hidden="true">
-      <div class="drawer-head">
-        <div>
-          <small>YOUR CHOCOLATE PICKS</small>
-          <h2>Your bag <span id="drawer-count">(0)</span></h2>
-        </div>
-        <button class="close-button" id="close-cart" aria-label="Close bag">
-          ×
-        </button>
-      </div>
-      <div class="cart-items" id="cart-items"></div>
-      <div class="cart-empty" id="cart-empty">
-        <span>♡</span>
-        <p>Your bag is empty for now.</p>
-        <a href="#catalog" id="continue-shopping">Find something lovely</a>
-      </div>
-      <div class="drawer-foot" id="drawer-foot">
-        <p><span>Subtotal</span><strong id="subtotal">₹0</strong></p>
-        <small>Shipping calculated at checkout.</small><button class="checkout" id="checkout">
-          Continue to checkout <span>→</span>
-        </button>
-      </div>
-    </aside>
-    <dialog id="buy-dialog" aria-labelledby="buy-dialog-title">
-      <small class="dialog-eyebrow">COCO &amp; CO. · ORDER PREVIEW</small>
-      <h2 id="buy-dialog-title">Review your plan</h2>
-      <p class="buy-dialog-product" id="buy-dialog-product"></p>
-      <div class="buy-dialog-summary">
-        <div><span>Price</span><strong id="buy-dialog-price"></strong></div>
-        <div><span>Duration</span><strong id="buy-dialog-pack"></strong></div>
-      </div>
-      <div class="buy-dialog-actions"><button type="button" id="buy-cancel">Cancel</button><button type="button"
-          id="buy-confirm">Continue</button></div>
-    </dialog>
     <dialog id="login-required-dialog" aria-labelledby="login-required-title">
       <small class="dialog-eyebrow">COCO &amp; CO. ACCOUNT</small>
       <h2 id="login-required-title">Login required</h2>
-      <p>Sign in to your account before continuing with this demo order.</p>
+      <p>Sign in to your account before placing an order.</p>
       <div class="buy-dialog-actions"><button type="button" id="login-required-cancel">Cancel</button><button
           type="button" id="login-required-open">Sign in</button></div>
-    </dialog>
-    <dialog id="checkout-dialog">
-      <button class="close-button dialog-close" id="close-checkout" aria-label="Close checkout">
-        ×</button><small class="dialog-eyebrow">DEMO CHECKOUT</small>
-      <h2>Almost yours.</h2>
-      <p>This is a demo storefront. No payment will be collected.</p>
-      <form id="checkout-form">
-        <label>Name<input required autocomplete="name" placeholder="Your name" /></label><label>Email<input type="email"
-            required autocomplete="email" placeholder="you@example.com" /></label><label>Delivery address<input required
-            autocomplete="street-address" placeholder="Street, city, PIN code" /></label><button class="checkout"
-          type="submit">
-          Place demo order <span>→</span>
-        </button>
-      </form>
-      <div id="order-message" role="status"></div>
     </dialog>
     <dialog id="store-ad-dialog" class="store-ad-dialog" aria-labelledby="store-ad-title">
       <button class="store-ad-close" id="store-ad-close" type="button" aria-label="Close advertisement">×</button>

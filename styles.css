@@ -486,120 +486,6 @@ footer > small {
   opacity: 1;
   visibility: visible;
 }
-.cart-drawer {
-  position: fixed;
-  z-index: 6;
-  right: 0;
-  top: 0;
-  height: 100dvh;
-  width: min(440px, 100%);
-  background: var(--paper);
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(102%);
-  transition: transform 0.3s;
-}
-.cart-drawer.open {
-  transform: translateX(0);
-}
-.drawer-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 20px;
-}
-.drawer-head h2 {
-  font: 500 27px var(--serif);
-  margin: 8px 0 0;
-}
-.drawer-head h2 span {
-  font: 11px var(--sans);
-  color: var(--muted);
-}
-.close-button {
-  font-size: 27px;
-  line-height: 1;
-  padding: 0;
-}
-.cart-items {
-  overflow: auto;
-}
-.cart-row {
-  display: grid;
-  grid-template-columns: 76px 1fr auto;
-  gap: 14px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-}
-.cart-row img {
-  width: 76px;
-  height: 90px;
-  object-fit: cover;
-}
-.cart-row h3 {
-  font: 500 15px var(--serif);
-  margin: 4px 0;
-}
-.cart-row small {
-  font-size: 10px;
-  color: var(--muted);
-}
-.qty-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 13px;
-  font-size: 11px;
-}
-.qty-controls button,
-.remove-item {
-  border: 1px solid var(--line);
-  background: none;
-  width: 22px;
-  height: 22px;
-}
-.remove-item {
-  border: 0;
-  color: var(--muted);
-}
-.cart-empty {
-  flex: 1;
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  text-align: center;
-  color: var(--muted);
-}
-.cart-empty > span {
-  font-size: 26px;
-  color: var(--orange);
-}
-.cart-empty p {
-  font: italic 18px var(--serif);
-}
-.drawer-foot {
-  padding-top: 17px;
-  border-top: 1px solid var(--line);
-}
-.drawer-foot > p {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-}
-.drawer-foot > p strong {
-  font-size: 13px;
-}
-.drawer-foot > small {
-  display: block;
-  color: var(--muted);
-  font-size: 9px;
-  margin-bottom: 15px;
-}
-.checkout {
-  width: 100%;
-}
 .dialog-close {
   position: absolute;
   right: 23px;
@@ -874,9 +760,6 @@ dialog > p {
   }
   footer > small {
     margin-top: 21px;
-  }
-  .cart-drawer {
-    padding: 23px;
   }
   .mobile-break {
     display: block;
